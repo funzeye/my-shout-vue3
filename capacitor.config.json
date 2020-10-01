@@ -1,0 +1,13 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "my-shout-app-vue-3",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {}
+}

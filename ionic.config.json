@@ -1,0 +1,7 @@
+{
+  "name": "my-shout-app-vue-3",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
