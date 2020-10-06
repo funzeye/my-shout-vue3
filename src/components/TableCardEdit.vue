@@ -1,6 +1,8 @@
 <template>
   <table-card-base :pubTable="pubTable" :pubFloors="pubFloors">
-      <ion-button size="default" fill="outline" slot="table-card-action-button" @click.prevent="editTableDetails">Edit</ion-button>
+    <template v-slot:table-card-action-button>
+      <ion-button size="default" fill="outline" @click.prevent="editTableDetails">Edit</ion-button>
+    </template>
   </table-card-base>
 </template>
 

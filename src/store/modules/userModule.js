@@ -138,7 +138,7 @@ const actions = {
       .auth()
       .signOut()
       .then(() => {
-        router.replace('/')
+        router.replace({ name: 'home'})
         commit('resetUserModuleState')
         commit('reservationModule/resetReservationModuleState', null, { root: true })
         commit('pubModule/resetPubModuleState', null, { root: true })

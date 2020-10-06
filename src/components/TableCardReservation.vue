@@ -1,8 +1,6 @@
 <template>
       <table-card-base :pubTable="pubTable" :pubFloors="pubFloors">
           <template v-slot:table-card-other-details>
-            {{ reservation }}
-            {{ loggedInUserId }}
             <div>
               <ion-item lines="none" v-if="!reservation.isCancelled && reservation.reservedBy && !reservation.reservedByOwner && ((reservation.reservedBy === loggedInUserId) || userIsOwner)">
                 <ion-label position="stacked">Reserved By Patron:</ion-label>
@@ -30,22 +28,17 @@
               </ion-item>
             </div>
           </template>
-          <template v-if="(reservation.isCancelled !== true && reservation.reservedBy === loggedInUserId) ||
+          <template v-slot:table-card-action-button>
+            <div v-if="(reservation.isCancelled !== true && reservation.reservedBy === loggedInUserId) ||
             (!reservation.isCancelled && userIsOwner && reservation.reservedBy && reservation.timeToArrivalLimit && new Date(reservation.timeToArrivalLimit).getTime() < new Date().getTime()) ||
-            (!reservation.isCancelled && userIsOwner && reservation.reservedBy && !reservation.timeToArrivalLimit)"
-            v-slot:table-card-action-button>
-            <div  class="ion-padding-vertical">
+            (!reservation.isCancelled && userIsOwner && reservation.reservedBy && !reservation.timeToArrivalLimit)"  class="ion-padding-vertical">
               <ion-button color="danger" expand="block" size="default" fill="outline" @click.prevent="cancelTableReservation">Cancel</ion-button>
             </div>
-          </template>
-          <template v-slot:table-card-action-button v-else-if="!reservation.isCancelled && reservation.reservedBy && reservation.reservedBy !== loggedInUserId">
-            <div class="ion-padding-vertical">
+            <div v-else-if="!reservation.isCancelled && reservation.reservedBy && reservation.reservedBy !== loggedInUserId" class="ion-padding-vertical">
               <ion-button expand="block" size="default" fill="outline" color="success" disabled>Reserved</ion-button>
             </div>
-          </template>
-          <template v-else v-slot:table-card-action-button>
-            <div class="ion-padding-vertical">
-              $$$ ===>> <ion-button slot="start" expand="block" size="default" fill="outline" @click.prevent="reserveTable">Reserve</ion-button>
+            <div v-else class="ion-padding-vertical">
+              <ion-button slot="start" expand="block" size="default" fill="outline" @click.prevent="reserveTable">Reserve</ion-button>
             </div>
           </template>
           <template v-slot:table-card-action-button-info>

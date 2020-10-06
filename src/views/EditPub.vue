@@ -5,7 +5,7 @@
         <ion-title>Edit Pub</ion-title>
         <ion-buttons slot="start">
           <ion-button @click="backToPubDetails">
-            <ion-icon :src="i.arrowBack"></ion-icon>
+            <ion-icon :icon="arrowBack"></ion-icon>
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
@@ -20,13 +20,18 @@
 </template>
 
 <script>
-import * as allIcons from 'ionicons/icons'
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonButton, IonIcon } from '@ionic/vue';
+
+import { arrowBack } from 'ionicons/icons'
 
 export default {
   data () {
     return {
-      i: allIcons
+      arrowBack
     }
+  },
+  components: {
+    IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonButton, IonIcon
   },
   computed: {
     pub: {

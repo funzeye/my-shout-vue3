@@ -5,7 +5,7 @@
                 <ion-title>Pub Details</ion-title>
                 <ion-buttons slot="start">
                 <ion-button @click="backToEditPub">
-                    <ion-icon :src="i.arrowBack"></ion-icon>
+                    <ion-icon :icon="arrowBack"></ion-icon>
                 </ion-button>
                 </ion-buttons>
             </ion-toolbar>
@@ -17,16 +17,18 @@
 </template>
 
 <script>
-import * as allIcons from 'ionicons/icons'
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonButton, IonIcon } from '@ionic/vue';
+import { arrowBack } from 'ionicons/icons'
 import PubDetailsForm from '../components/PubDetailsForm.vue'
 
 export default {
   components: {
-    PubDetailsForm
+    PubDetailsForm,
+    IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonButton, IonIcon
   },
   data () {
     return {
-      i: allIcons
+      arrowBack
     }
   },
   methods: {

@@ -5,7 +5,7 @@
         <ion-title>Add Pub Photo</ion-title>
         <ion-buttons slot="start">
           <ion-button @click="backToEditPub">
-            <ion-icon :src="i.arrowBack"></ion-icon>
+            <ion-icon :icon="arrowBack"></ion-icon>
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
@@ -23,8 +23,10 @@
 </template>
 
 <script>
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonButton, IonIcon } from '@ionic/vue';
+
 import { Plugins, CameraSource, CameraResultType } from '@capacitor/core'
-import * as allIcons from 'ionicons/icons'
+import { arrowBack } from 'ionicons/icons'
 import firebase from 'firebase/app'
 import { toastController } from '@ionic/core'
 
@@ -47,8 +49,11 @@ export default {
     return {
       imageElementSrc: null,
       enableUpload: false,
-      i: allIcons
+      arrowBack
     }
+  },
+  components: {
+    IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonButton, IonIcon
   },
   methods: {
     async takePicture () {

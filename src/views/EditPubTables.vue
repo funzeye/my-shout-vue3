@@ -5,7 +5,7 @@
         <ion-title>Edit Tables</ion-title>
         <ion-buttons slot="start">
           <ion-button @click="backToEditPub">
-            <ion-icon :src="i.arrowBack"></ion-icon>
+            <ion-icon :icon="arrowBack"></ion-icon>
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
@@ -15,7 +15,7 @@
          <ion-grid style="max-width:1200px;">
           <ion-row>
             <ion-col size="12" size-md="6" size-lg="4" v-for="pt in sortedTables" :key="pt['.key']">
-              <table-card :i="i" :pubTable="pt" :pubFloors="pub.floors" />
+              <table-card :pubTable="pt" :pubFloors="pub.floors" />
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -26,22 +26,24 @@
         </div>
       </form>
     </ion-content>
-    <router-view></router-view>
   </ion-page>
 </template>
 
 <script>
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonButton, IonList, IonGrid, IonRow, IonCol, IonIcon } from '@ionic/vue';
+
 import TableCard from '../components/TableCardEdit.vue'
-import * as allIcons from 'ionicons/icons'
+import { arrowBack } from 'ionicons/icons'
 
 export default {
   name: 'edit-pub-tables',
   components: {
-    TableCard
+    TableCard,
+    IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonButton, IonList, IonGrid, IonRow, IonCol, IonIcon
   },
   data () {
     return {
-      i: allIcons
+      arrowBack
     }
   },
   methods: {

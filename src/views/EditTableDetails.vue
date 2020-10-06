@@ -10,17 +10,17 @@
             <form @submit.prevent="submitted">
               <ion-item lines="none">
                   <ion-label position="stacked">Located In Area <ion-text color="danger">*</ion-text></ion-label>
-                  <ion-select-vue value="" interface="action-sheet" placeholder="e.g. Lounge" name="pubFloorArea" v-model="pubTable.pubFloorArea">
+                  <ion-select value="" interface="action-sheet" placeholder="e.g. Lounge" name="pubFloorArea" v-model="pubTable.pubFloorArea">
                       <ion-select-option v-for="pfa in pubFloorAreas" :key="pfa['.key']" :value="pfa.name">{{ pfa.name }}</ion-select-option>
-                  </ion-select-vue>
+                  </ion-select>
               </ion-item>
 
               <ion-item lines="none">
                 <ion-label position="stacked">Seats <b>{{ pubTable.seats }}</b></ion-label>
                 <ion-range name="seats" ref="seats" pin snaps debounce="200" min="1" max="12" v-model="pubTable.seats"
                   @ionChange="pubTable.seats = $event.target.value">
-                  <ion-icon slot="start" :src="i.people"></ion-icon>
-                  <ion-icon slot="end" :src="i.people"></ion-icon>
+                  <ion-icon slot="start" :icon="people"></ion-icon>
+                  <ion-icon slot="end" :icon="people"></ion-icon>
                 </ion-range>
               </ion-item>
 
@@ -28,8 +28,8 @@
                 <ion-label position="stacked">Located on Floor # <b>{{ pubTable.floor }}</b></ion-label>
                 <ion-range name="floor" ref="floor" pin snaps debounce="200" :min="pubFloors.lower" :max="pubFloors.upper" v-model="pubTable.floor"
                   @ionChange="updateTableFloors">
-                  <ion-icon slot="start" :src="i.layers"></ion-icon>
-                  <ion-icon slot="end" :src="i.layers"></ion-icon>
+                  <ion-icon slot="start" :icon="layers"></ion-icon>
+                  <ion-icon slot="end" :icon="layers"></ion-icon>
                 </ion-range>
               </ion-item>
               <ion-item lines="none" v-else>
@@ -48,17 +48,22 @@
 </template>
 
 <script>
+import { IonPage, IonContent, IonGrid, IonRow, IonCol, IonItem, IonLabel, IonIcon, 
+          IonRange, IonSelect, IonSelectOption, IonButton, IonText } from '@ionic/vue';
+
 import TheHeader from '../components/TheHeader.vue'
-import * as allIcons from 'ionicons/icons'
+import { people, layers } from 'ionicons/icons'
 
 export default {
   data () {
     return {
-      i: allIcons
+      people, layers
     }
   },
   components: {
-    TheHeader
+    TheHeader,
+    IonPage, IonContent, IonGrid, IonRow, IonCol, IonItem, IonLabel, IonIcon, IonRange, IonSelect, IonSelectOption,
+    IonButton, IonText
   },
   methods: {
     submitted () {

@@ -5,15 +5,15 @@
         <form @submit.prevent="submitted">
           <ion-item lines="none">
             <ion-label class="pub-details-label" position="stacked">Pub Name <ion-text color="danger">*</ion-text></ion-label>
-            <ion-input-vue @ionBlur="$v.pub.pubName.$touch(true)" type="text" placeholder="e.g. Walsh's Public House" clear-input name="pubName" v-model="pub.pubName"></ion-input-vue>
+            <ion-input @ionBlur="$v.pub.pubName.$touch(true)" type="text" placeholder="e.g. Walsh's Public House" clear-input name="pubName" v-model="pub.pubName"></ion-input>
           </ion-item>
 
           <ion-item lines="none">
             <ion-label position="stacked">Address <ion-text color="danger">*</ion-text></ion-label>
-            <ion-input-vue @ionBlur="$v.pub.addressLine1.$touch(true)" placeholder="Address Line 1" v-model="pub.addressLine1"></ion-input-vue>
-            <ion-input-vue placeholder="Address Line 2 (Optional)" v-model="pub.addressLine2"></ion-input-vue>
-            <ion-input-vue @ionBlur="$v.pub.townCity.$touch(true)" placeholder="Town/City" v-model="pub.townCity"></ion-input-vue>
-            <ion-select-vue @ionBlur="$v.pub.county.$touch(true)" value="" interface="action-sheet" placeholder="County" name="county" v-model="pub.county">
+            <ion-input @ionBlur="$v.pub.addressLine1.$touch(true)" placeholder="Address Line 1" v-model="pub.addressLine1"></ion-input>
+            <ion-input placeholder="Address Line 2 (Optional)" v-model="pub.addressLine2"></ion-input>
+            <ion-input @ionBlur="$v.pub.townCity.$touch(true)" placeholder="Town/City" v-model="pub.townCity"></ion-input>
+            <ion-select @ionBlur="$v.pub.county.$touch(true)" value="" interface="action-sheet" placeholder="County" name="county" v-model="pub.county">
               <ion-select-option value="carlow">Carlow</ion-select-option>
               <ion-select-option value="cavan">Cavan</ion-select-option>
               <ion-select-option value="cork">Cork</ion-select-option>
@@ -40,20 +40,20 @@
               <ion-select-option value="westmeath">Westmeath</ion-select-option>
               <ion-select-option value="wexford">Wexford</ion-select-option>
               <ion-select-option value="wicklow">Wicklow</ion-select-option>
-            </ion-select-vue>
-            <ion-input-vue placeholder="Eircode (Optional)" v-model="pub.eircode"></ion-input-vue>
+            </ion-select>
+            <ion-input placeholder="Eircode (Optional)" v-model="pub.eircode"></ion-input>
             <ion-note v-if="$v.pub.county.$invalid && $v.pub.county.$dirty" class="error ion-padding" color="danger">county is required</ion-note>
 
           </ion-item>
 
           <ion-item lines="none" :disabled="allTodaysReservationsForPub && allTodaysReservationsForPub.length > 0">
             <ion-label position="stacked">Number of Reservable Tables<ion-text color="danger">*</ion-text></ion-label>
-            <ion-input-vue
+            <ion-input
               @ionBlur="$v.pub.numOfTables.$touch(true)"
               type="number"
               clear-input
               placeholder="e.g. 12" v-model.number="pub.numOfTables">
-            </ion-input-vue>
+            </ion-input>
             <ion-note v-if="allTodaysReservationsForPub && allTodaysReservationsForPub.length > 0" class="error ion-padding" color="danger">Cannot change number of tables while some tables are currently reserved</ion-note>
             <ion-note v-if="!$v.pub.numOfTables.minVal" class="error ion-padding" color="danger">Must add at least 1 table</ion-note>
           </ion-item>
@@ -64,8 +64,8 @@
               <ion-range ref="floors" id="dual-range"
                 dual-knobs pin snaps debounce="200" min="-5" max="10" v-model="pub.floors"
                 @ionChange="pub.floors = $event.target.value">
-                <ion-icon slot="start" :src="i.layers"></ion-icon>
-                <ion-icon slot="end" :src="i.layers"></ion-icon>
+                <ion-icon slot="start" :icon="layers"></ion-icon>
+                <ion-icon slot="end" :icon="layers"></ion-icon>
               </ion-range>
               <ion-note v-if="pub.floors.lower === pub.floors.upper" class="floor-details ion-padding" color="secondary">&#10004; 1 Floor Selected</ion-note>
               <ion-note v-if="pub.floors.lower === pub.floors.upper && pub.floors.upper !== 0" class="floor-details ion-padding" color="secondary">&#10004; Floor #: {{ pub.floors.lower }}</ion-note>
@@ -93,8 +93,8 @@
                 <ion-label position="stacked">Set Time to Arrival Limit: <b>{{ pub.timeToArrivalLimitInMinutes }} minutes</b></ion-label>
                 <ion-range name="limitToArrival" ref="limitToArrival" pin snaps debounce="200"
                     min="15" max="120" step="15" :value="pub.timeToArrivalLimitInMinutes" :v-model="pub.timeToArrivalLimitInMinutes" @ionChange="pub.timeToArrivalLimitInMinutes = $event.target.value">
-                    <ion-icon slot="start" :src="i.alarm"></ion-icon>
-                    <ion-icon slot="end" :src="i.alarm"></ion-icon>
+                    <ion-icon slot="start" :icon="alarm"></ion-icon>
+                    <ion-icon slot="end" :icon="alarm"></ion-icon>
                 </ion-range>
               </ion-item>
           </ion-item-group>
@@ -110,15 +110,21 @@
 </template>
 
 <script>
+import { IonGrid, IonRow, IonCol, IonButton, IonIcon, IonItem, IonItemGroup, IonLabel, 
+          IonNote, IonInput, IonSelect, IonSelectOption, IonRange, IonText, IonToggle } from '@ionic/vue';
 
 import { required, numeric, minValue } from '@vuelidate/validators'
-import * as allIcons from 'ionicons/icons'
+import { layers, alarm } from 'ionicons/icons'
 
 export default {
   data () {
     return {
-      i: allIcons
+      layers, alarm
     }
+  },
+  components: {
+    IonGrid, IonRow, IonCol, IonButton, IonIcon, IonItem, IonItemGroup, IonLabel, IonNote, 
+    IonInput, IonSelect, IonSelectOption, IonRange, IonText, IonToggle
   },
   props: ['mode'],
   validations: {
