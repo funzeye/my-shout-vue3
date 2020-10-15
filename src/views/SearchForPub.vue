@@ -5,21 +5,18 @@
       <template v-if="isLoading">
       </template>
       <template v-else>
-      <template v-if="user.userRoles && user.userRoles.publican === true">
-        <ion-text>
-          <h1 class="ion-padding">Your Pub</h1>
-        </ion-text>
-        <template v-if="publicansPub && publicansPub.key !== ''">
-          <ion-grid fixed>
+        <template v-if="user.userRoles && user.userRoles.publican === true">
+          <ion-text>
+            <h1 class="ion-padding">Your Pub</h1>
+          </ion-text>
+          <ion-grid fixed v-if="publicansPub && publicansPub.key !== ''">
             <ion-row class="ion-justify-content-center">
               <ion-col size="12" size-sm="6" size-md="6" size-lg="3" size-xl="2">
                 <pub-card :i="i" :pub="publicansPub" actionName="Manage" />
               </ion-col>
             </ion-row>
           </ion-grid>
-        </template>
-        <template v-else>
-          <ion-grid class="publican-pub-grid">
+          <ion-grid v-else class="publican-pub-grid">
             <ion-row class="ion-justify-content-center">
               <ion-col size="8" size-md="4">
                 <ion-label>
@@ -39,7 +36,6 @@
               </ion-col>
             </ion-row>
           </ion-grid>
-        </template>
         </template>
       </template>
       <ion-item-divider v-if="user.userRoles && user.userRoles.punter === true && user.userRoles.publican === true">

@@ -14,16 +14,16 @@
       <ion-grid>
         <ion-row class="ion-justify-content-center">
           <ion-col size="12" size-sm="8" size-md="6" size-xl="4">
-            <form @submit.prevent="reserve">
+            <form @submit.prevent="reserve" novalidate>
               <ion-item lines="none">
                   <ion-label position="stacked">Table # To Reserve:</ion-label>
                   <ion-input class="disabled" disabled>{{ pubTable.tableNum }}</ion-input>
               </ion-item>
-              <ion-item lines="none">
+              <!-- <ion-item lines="none">
                   <ion-label position="stacked">Name on Reservation: <ion-text v-if="pub.ownerId === userId" color="danger">*</ion-text></ion-label>
                   <ion-input v-if="pub.ownerId !== userId" type="text" class="disabled" disabled>{{userDetails.firstName}} {{userDetails.surname}}</ion-input>
-                  <ion-input v-else autofocus="true" type="text" inputmode="text" v-model="ownerReservedOnBehalfOf" placeholder="Please add name of person here"></ion-input>
-              </ion-item>
+                  <ion-input v-else autofocus="true" type="text" inputmode="text" :v-model="ownerReservedOnBehalfOf" placeholder="Please add name of person here"></ion-input>
+              </ion-item> -->
               <ion-item lines="none" v-if="pub.ownerId === userId">
                   <ion-label position="stacked">Their Phone Number: <ion-text color="danger">*</ion-text></ion-label>
                   <ion-input inputmode="tel" type="tel" v-model="ownerReservedOnBehalfOfPhone" placeholder="Please add number of person here"></ion-input>
@@ -52,6 +52,9 @@
               <div class="ion-padding">
                   <ion-button expand="block" color="secondary" class="ion-no-margin" @click.prevent="cancel">Cancel</ion-button>
               </div>
+              <div>dirty: {{ $v.ownerReservedOnBehalfOfPhone }}</div>
+              <div>disable: {{ $v.$invalid && pub.ownerId === userId }} </div>
+
             </form>
           </ion-col>
         </ion-row>
@@ -77,17 +80,17 @@ export default {
   },
   data () {
     return {
-      ownerReservedOnBehalfOf: null,
+      //ownerReservedOnBehalfOf: null,
       ownerReservedOnBehalfOfPhone: null,
       arrowBack
     }
   },
   validations: {
-    ownerReservedOnBehalfOf: {
-      required
-    },
+    //ownerReservedOnBehalfOf: {
+    //  required: required
+    //},
     ownerReservedOnBehalfOfPhone: {
-      required
+      required: required
     }
   },
   computed: {

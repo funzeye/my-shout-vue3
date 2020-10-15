@@ -2,6 +2,7 @@
       <table-card-base :pubTable="pubTable" :pubFloors="pubFloors">
           <template v-slot:table-card-other-details>
             <div>
+              {{ reservation }}
               <ion-item lines="none" v-if="!reservation.isCancelled && reservation.reservedBy && !reservation.reservedByOwner && ((reservation.reservedBy === loggedInUserId) || userIsOwner)">
                 <ion-label position="stacked">Reserved By Patron:</ion-label>
                 <ion-text v-if="reservation.patronDetails">{{ reservation.patronDetails.patronName }}</ion-text>
@@ -12,11 +13,11 @@
               </ion-item>
               <ion-item  lines="none" v-if="!reservation.isCancelled && reservation.reservedBy && reservation.reservedByOwner && userIsOwner">
                 <ion-label position="stacked">Reserved By Publican For:</ion-label>
-                <ion-text>{{ reservation.patronDetails.patronName }}</ion-text>
+                <ion-text v-if="reservation.patronDetails">{{ reservation.patronDetails.patronName }}</ion-text>
               </ion-item>
               <ion-item  lines="none" v-if="!reservation.isCancelled && reservation.reservedBy && reservation.reservedByOwner && userIsOwner">
                 <ion-label position="stacked">Phone Number:</ion-label>
-                <ion-text>{{ reservation.patronDetails.patronPhone }}</ion-text>
+                <ion-text v-if="reservation.patronDetails">{{ reservation.patronDetails.patronPhone }}</ion-text>
               </ion-item>
               <ion-item  lines="none" v-if="!reservation.isCancelled && reservation.reservedBy ">
                 <ion-label position="stacked">Reserved At:</ion-label>
